@@ -1,31 +1,55 @@
 import { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { fromEvent } from 'rxjs';
+import { getCourse, getCurrencyCode } from '../../helpers/currency';
 
-import getCurrencyExchange from '../../helpers/getCurrencyExchange';
 // import { map } from 'rxjs/operators';
 // import useObservable from '../../hooks/useObservable';
 
 function Converter({ currencies }) {
   const firstEl = useRef(null);
   const secondEl = useRef(null);
-
-  getCurrencyExchange(840, 980);
+  const firstSelect = useRef(null);
+  const secondSelect = useRef(null);
 
   useEffect(() => {
     const inputFirst$ = fromEvent(firstEl.current, 'input')
-      .subscribe(e => {
-        secondEl.current.value = (+e.target.value * getCurrencyExchange(840, 980)).toFixed(2);
+      .subscribe(() => {
+        secondEl.current.value = (firstEl.current.value * getCourse(
+          getCurrencyCode(firstSelect.current.value),
+          getCurrencyCode(secondSelect.current.value),
+        )).toFixed(2);
       });
 
     const inputSecond$ = fromEvent(secondEl.current, 'input')
-      .subscribe(e => {
-        firstEl.current.value = (+e.target.value / getCurrencyExchange(840, 980)).toFixed(2);
+      .subscribe(() => {
+        firstEl.current.value = (secondEl.current.value / getCourse(
+          getCurrencyCode(firstSelect.current.value),
+          getCurrencyCode(secondSelect.current.value),
+        )).toFixed(2);
+      });
+
+    const selectFirst = fromEvent(firstSelect.current, 'input')
+      .subscribe(() => {
+        secondEl.current.value = (firstEl.current.value * getCourse(
+          getCurrencyCode(firstSelect.current.value),
+          getCurrencyCode(secondSelect.current.value),
+        )).toFixed(2);
+      });
+
+    const selectSecond = fromEvent(secondSelect.current, 'input')
+      .subscribe(() => {
+        firstEl.current.value = (secondEl.current.value / getCourse(
+          getCurrencyCode(firstSelect.current.value),
+          getCurrencyCode(secondSelect.current.value),
+        )).toFixed(2);
       });
 
     return () => {
       inputFirst$.unsubscribe();
       inputSecond$.unsubscribe();
+      selectFirst.unsubscribe();
+      selectSecond.unsubscribe();
     };
   }, []);
 
@@ -35,7 +59,7 @@ function Converter({ currencies }) {
       <div className="converter-wrapper">
         <div className="converter-block">
           <input type="number" autoComplete="off" ref={firstEl} />
-          <select name="currencyFirst" id="currencyFirst">
+          <select name="currencyFirst" ref={firstSelect}>
             {currencies.map(el => (
               <option key={el}>{el}</option>
             ))}
@@ -43,7 +67,7 @@ function Converter({ currencies }) {
         </div>
         <div className="converter-block">
           <input type="number" autoComplete="off" ref={secondEl} />
-          <select defaultValue="UAH" name="currencySecond" id="currencySecond">
+          <select defaultValue="UAH" name="currencySecond" ref={secondSelect}>
             {currencies.map(el => (
               <option key={el}>{el}</option>
             ))}

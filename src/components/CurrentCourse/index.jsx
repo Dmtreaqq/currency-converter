@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-
-import { getCurrencyCode, getCountryByCode } from '../../helpers/getCurrencyCode';
+import { getCurrencyCode, getAbbrByCode } from '../../helpers/currency';
 
 function CurrentCourse({ currencies }) {
   const [fetchedData, setFetchedData] = useState({});
@@ -25,7 +24,7 @@ function CurrentCourse({ currencies }) {
     getData();
   }, []);
 
-  const getAllCurrencies = ({ data }) => {
+  const getPassedCurrencies = ({ data }) => {
     let currenciesArr = [];
 
     currencies.forEach((country) => {
@@ -40,7 +39,7 @@ function CurrentCourse({ currencies }) {
       currenciesArr.map((el, i) => (
         // eslint-disable-next-line react/no-array-index-key
         <div key={i}>
-          <span style={{ marginRight: '5px' }}>{getCountryByCode(el.currencyCodeA)}</span>
+          <span style={{ marginRight: '5px' }}>{getAbbrByCode(el.currencyCodeA)}</span>
           <span>{el.rateSell}</span>
         </div>
       ))
@@ -53,7 +52,7 @@ function CurrentCourse({ currencies }) {
       <div>
         {fetchedData
           && Object.keys(fetchedData).length !== 0
-          ? getAllCurrencies(fetchedData) : null}
+          ? getPassedCurrencies(fetchedData) : null}
       </div>
     </aside>
   );
