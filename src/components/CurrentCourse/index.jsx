@@ -12,7 +12,12 @@ function CurrentCourse({ currencies }) {
       const ls = localStorage.getItem('currencyConverter');
 
       if (!ls) {
-        data = await axios.get('https://api.monobank.ua/bank/currency');
+        try {
+          data = await axios.get('https://api.monobank.ua/bank/currency');
+        } catch {
+          setTimeout(data = await axios.get('https://api.monobank.ua/bank/currency'), 500);
+        }
+
         localStorage.setItem('currencyConverter', JSON.stringify(data));
       } else {
         data = JSON.parse(ls);

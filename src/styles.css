@@ -16,28 +16,82 @@ input[type=number] {
 
 body {
   margin: 0;
+  font-family: sans-serif;
+  background-color: #003399;
+}
+
+.main {
+  display: flex;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 0 40px;
-  border: 1px solid red;
+  padding: 20px 40px;
+  
+  background-color: #003333;
+
+  color: white;
 }
 
 .currentcourse {
-  border: 1px solid black;
+  margin: auto;
   padding: 20px;
+  border: 1px solid green;
+  border-radius: 10px;
+  background-color: #003300;
 }
 
 .converter {
-  width: 600px;
+  width: 900px;
   border: 1px solid black;
-  margin: 0 auto;
+  margin: auto;
+  margin-top: 30px;
+  padding-bottom: 30px;
+  
+  background-color: #000033;
+  border-radius: 9px;
+
   text-align: center;
+  color: white;
 }
 
 .converter-wrapper {
   display: flex;
   justify-content: space-around;
+}
+
+.converter-block {
+  display: flex;
+}
+
+.converter-input {
+  min-width: 100px;
+  height: 40px;
+  border: 0;
+
+  border-bottom-left-radius: 9px;
+  border-top-left-radius: 9px;
+
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.converter-input:focus {
+  outline: none;
+}
+
+.converter-title {
+  text-transform: uppercase;
+}
+
+
+.converter-select {
+  border: 0;
+  border-top-right-radius: 9px;
+  border-bottom-right-radius: 9px;
+  outline: none;
+
+  /* styles */
+  font-size: 1.2rem;
 }

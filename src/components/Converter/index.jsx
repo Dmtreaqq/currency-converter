@@ -53,24 +53,24 @@ function Converter({ currencies }) {
     };
   }, []);
 
+  const options = currencies.map(el => (
+    <option key={el}>{el}</option>
+  ));
+
   return (
     <section className="converter">
-      <h2>Converter</h2>
+      <h1 className="converter-title">Currency Converter</h1>
       <div className="converter-wrapper">
         <div className="converter-block">
-          <input type="number" autoComplete="off" ref={firstEl} />
-          <select name="currencyFirst" ref={firstSelect}>
-            {currencies.map(el => (
-              <option key={el}>{el}</option>
-            ))}
+          <input className="converter-input" type="number" autoComplete="off" ref={firstEl} />
+          <select className="converter-select" name="currencyFirst" ref={firstSelect}>
+            {options}
           </select>
         </div>
         <div className="converter-block">
-          <input type="number" autoComplete="off" ref={secondEl} />
-          <select defaultValue="UAH" name="currencySecond" ref={secondSelect}>
-            {currencies.map(el => (
-              <option key={el}>{el}</option>
-            ))}
+          <input className="converter-input" type="number" autoComplete="off" ref={secondEl} />
+          <select className="converter-select" defaultValue="UAH" name="currencySecond" ref={secondSelect}>
+            {options}
           </select>
         </div>
       </div>

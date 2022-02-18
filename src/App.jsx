@@ -1,12 +1,12 @@
 import './styles.css';
 import Header from './components/Header';
-import Converter from './components/Converter';
+import MainContent from './components/MainContent';
 
 function App() {
   return (
     <>
       <Header />
-      <Converter currencies={['USD', 'EUR', 'UAH']} />
+      <MainContent />
     </>
   );
 }
