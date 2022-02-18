@@ -1,5 +1,3 @@
-const { data } = JSON.parse(localStorage.getItem('currencyConverter')) || '';
-
 const currenciesCodes = {
   USD: 840,
   EUR: 978,
@@ -7,6 +5,8 @@ const currenciesCodes = {
 };
 
 export function getCourse(curr1, curr2) {
+  const { data } = JSON.parse(localStorage.getItem('currencyConverter')) || '';
+
   if (curr1 === curr2) {
     return 1;
   }
